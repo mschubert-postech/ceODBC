@@ -45,7 +45,7 @@ cdef str _get_diag_record(SQLSMALLINT handle_type, SQLHANDLE handle,
                            "cannot get diagnostic message text")
     if buf_length > <SQLSMALLINT> sizeof(buf) - 1:
         buf_length = <SQLSMALLINT> sizeof(buf) - 1
-    return buf[:buf_length].decode()
+    return buf[:buf_length].decode('iso-8859-15')
 
 
 cdef int _raise_from_odbc(SQLSMALLINT handle_type, SQLHANDLE handle) except -1:

@@ -61,7 +61,10 @@ cdef class Var:
         c_data_type = self.type._c_data_type
         if c_data_type == SQL_C_CHAR:
             ptr = <char*> self._data.as_bytes + pos * self.buffer_size
-            value = ptr[:self._length_or_indicator[pos]].decode()
+            try:
+                value = ptr[:self._length_or_indicator[pos]].decode()
+            except UnicodeDecodeError:
+                value = ptr[:self._length_or_indicator[pos]].decode('iso-8859-15')
             if self.type is DB_TYPE_DECIMAL:
                 return decimal.Decimal(value)
             return value
