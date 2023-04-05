@@ -64,6 +64,7 @@ cdef class Var:
             try:
                 value = ptr[:self._length_or_indicator[pos]].decode()
             except UnicodeDecodeError:
+                print("unicode error")
                 value = ptr[:self._length_or_indicator[pos]].decode('iso-8859-15')
             if self.type is DB_TYPE_DECIMAL:
                 return decimal.Decimal(value)
